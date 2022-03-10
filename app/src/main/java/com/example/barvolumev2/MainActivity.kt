@@ -25,6 +25,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         tvResult = findViewById(R.id.tv_result)
 
         btnCalculate.setOnClickListener(this)
+
+        if (savedInstanceState != null) {
+            val result = savedInstanceState.getString(STATE_RESULT)
+            tvResult.setText(result)
+        }
     }
 
     override fun onClick(v: View?) {
@@ -53,5 +58,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 tvResult.setText(volume.toString())
             }
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(STATE_RESULT, tvResult.text.toString())
+    }
+
+    companion object {
+        private const val STATE_RESULT = "state_result"
     }
 }
